@@ -25,7 +25,12 @@ public class UserBO {
 		return userDAO.insertUser(loginId, ecryptPassword, name, email);
 	}
 	
-	public User searchUser(String loginId) {
-		return userDAO.selectUserByLoginId(loginId);
+	public boolean isDuplicatedId(String loginId) {
+		int count = userDAO.selectCountUserByLoginId(loginId);
+		return count != 0;
+	}
+	
+	public int searchPw(String loginId, String name, String email) {
+		return userDAO.selectPw(loginId, name, email);
 	}
 }

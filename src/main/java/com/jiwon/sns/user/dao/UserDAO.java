@@ -18,5 +18,10 @@ public interface UserDAO {
 			, @Param("name") String name
 			, @Param("email") String email);
 	
-	public User selectUserByLoginId(@Param("loginId") String loginId);
+	public int selectCountUserByLoginId(@Param("loginId") String loginId);
+	
+	public int selectPw(
+			@Param("loginId") String loginId
+			, @Param("name") String name
+			, @Param("email") String email);
 }

@@ -43,18 +43,23 @@
 		)
 	</insert>
 	
-	<select id="selectUserByLoginId" parameterType="string" resultType="com.jiwon.sns.user.model.User">
+	<select id="selectCountUserByLoginId" parameterType="string" resultType="int">
 		SELECT
-			`id`
-			, `loginId`
-			, `password`
-			, `name`
-			, `email`
-			, `createdAt`
-			, `updatedAt`
+			count(1)
 		FROM
 			`user`
 		WHERE
 			`loginId` = #{loginId}
+	</select>
+	
+	<select id="selectPw" parameterType="string" resultType="int">
+		SELECT
+			count(1)
+		FROM
+			`user`
+		WHERE
+			`loginId` = #{loginId}
+			AND `name` = #{name}
+			AND `email` = #{email}
 	</select>
 </mapper>

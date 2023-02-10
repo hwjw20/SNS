@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>로그인</title>
+<title>비밀번호 찾기</title>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
 	<script
@@ -22,16 +22,18 @@
 		</header>
 		<section class="d-flex align-contents-center mt-2">
 			<div class="join-box text-center margin pt-2 pl-5 pr-5" style="background-color:#f7f7f7">
-				<h1 class="mt-5">Pingstagram</h1>
+				<h1 class="mt-2">lock</h1>
+				<div class="mt-3">로그인에 문제가 있나요?</div>
+				<div class="small mt-2">사용자 이름 또는 이메일을 입력하면 다시 계정에 <br>로그인할 수 있는 링크를 보내드립니다.</div>
 				
-				<input type="text" class="form-control mt-5" placeholder="아이디" id="idInput">
-				<input type="password" class="form-control mt-2" id="passwordInput" placeholder="비밀번호">
-				<div class="float-right small mt-2"><a href="#">비밀번호를 잊으셨나요?</a></div>
-				<button type="button" class="btn btn-primary mt-5 btn-block" id="loginBtn">로그인</button>
+				<input type="text" class="form-control mt-2" placeholder="아이디" id="idInput">
+				<input type="text" class="form-control mt-2" placeholder="사용자 이름" id="nameInput">
+				<input type="text" class="form-control mt-2" placeholder="이메일" id="emailInput">
+				<button type="button" class="btn btn-primary mt-2 btn-block" id="searchBtn">다음</button>
 				
-				<div class="small mt-3">또는</div>
+				<div class="small mt-2">또는</div>
 				<hr>
-				<div class="text-primary mt-4"><a href="#">페이스북으로 로그인</a></div>
+				<div class="text-primary"><a href="#">페이스북으로 로그인</a></div>
 			</div>
 		</section>
 		<footer class="text-center">
@@ -42,39 +44,43 @@
 	
 	<script>
 		$(document).ready(function() {
-			
-			$("#loginBtn").on("click", function() {
+			$("#searchBtn").on("click", function() {
 				let id = $("#idInput").val();
-				let password = $("#passwordInput").val();
+				let name = $("#nameInput").val();
+				let email = $("#emailInput").val();
 				
 				if(id == "") {
 					alert("아이디를 입력하세요.");
 					return;
 				}
-				if(password == "") {
-					alert("비밀번호를 입력하세요.");
+				if(name == "") {
+					alert("이름을 입력하세요.");
+					return;
+				}
+				if(email == "") {
+					alert("이메일을 입력하세요.");
 					return;
 				}
 				
 				$.ajax({
-					type:"post"
-					, url:"/user/signin"
-					, data:{"loginId":id, "password":password}
+					type:"get"
+					, url:"/user/searchPw"
+					, data:{"loginId":id, "name":name, "email":email}
 					, success:function(data) {
-						if(data.result == "success") {
-							location.href="/post/timeline/view";
+						if(data.exist) {
+							alert("이메일에 새로운 비밀번호 변경 링크를 보냈습니다.");
+							location.href="/user/signin/view";
 						} else {
-							alert("아이디 또는 비밀번호를 확인하세요.");
+							alert("이름과 이메일이 일치하는 정보가 없습니다.");
 						}
 					}
 					, error:function() {
-						alert("에러");
+						alert("비밀번호 찾기 에러");
 					}
-				
 				});
 			});
 		});
-	</script>
 	
+	</script>
 </body>
 </html>

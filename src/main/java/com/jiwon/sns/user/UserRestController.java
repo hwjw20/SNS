@@ -67,14 +67,32 @@ public class UserRestController {
 	
 	@GetMapping("/duplicate_id")
 	public Map<String, Boolean> isDuplicate(@RequestParam("loginId") String loginId) {
-		User user = userBO.searchUser(loginId);
+		boolean isDuplicate = userBO.isDuplicatedId(loginId);
 		
 		Map<String, Boolean> result = new HashMap<>();
 		
-		if(user == null) {
-			result.put("is_duplicate", false);
+//		if(isDuplicate) {
+//			result.put("is_duplicate", true);
+//		} else {
+//			result.put("is_duplicate", false);
+//		}
+		result.put("is_duplicate", isDuplicate);
+		
+		return result;
+	}
+	
+	@GetMapping("/searchPw")
+	public Map<String, Boolean> searchPw(
+			@RequestParam("loginId") String loginId
+			, @RequestParam("name") String name
+			, @RequestParam("email") String email) {
+		int count = userBO.searchPw(loginId, name, email);
+		
+		Map<String, Boolean> result = new HashMap<>();
+		if(count == 1) {
+			result.put("exist", true);
 		} else {
-			result.put("is_duplicate", true);
+			result.put("exist", false);
 		}
 		
 		return result;

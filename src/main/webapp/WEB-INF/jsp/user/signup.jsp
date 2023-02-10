@@ -33,7 +33,7 @@
 				
 				<input type="password" class="form-control mt-4" id="passwordInput" placeholder="비밀번호">
 				<input type="password" class="form-control mt-4" id="passwordConfirmInput" placeholder="비밀번호 확인">
-				<input type="text" class="form-control mt-5" id="nameInput" placeholder="이름">
+				<input type="text" class="form-control mt-4" id="nameInput" placeholder="이름">
 				<input type="text" class="form-control mt-4" id="emailInput" placeholder="이메일">
 				
 				<button type="button" class="btn btn-primary mt-3" id="signupBtn">회원가입</button>
@@ -71,6 +71,8 @@
 					, url:"/user/duplicate_id"
 					, data:{"loginId":id}
 					, success:function(data) {
+						isChecked = true;
+						
 						if(data.is_duplicate) {
 							isDuplicate = true;
 							
@@ -117,6 +119,14 @@
 				}
 				if(email == "") {
 					alert("이메일을 입력하세요.");
+					return;
+				}
+				if(!isChecked) {
+					alert("아이디 중복확인을 해주세요.");
+					return;
+				}
+				if(isDuplicate) {
+					alert("중복된 아이디입니다.");
 					return;
 				}
 				

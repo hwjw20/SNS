@@ -17,4 +17,11 @@ public class UserController {
 	public String signupView() {
 		return "user/signup";
 	}
+	
+	@GetMapping("/searchPW/view")
+	public String searchPwView() {
+		return "user/searchPw";
+	}
+	
+	
 }
