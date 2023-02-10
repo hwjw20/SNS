@@ -1,0 +1,22 @@
+@charset "UTF-8";
+
+#wrap {
+	width:600px;
+	margin:auto;
+}
+header {
+	width:600px;
+	height:80px;
+}
+section {
+	width:400px;
+	height:480px;
+	margin:auto;
+	
+}
+section > .join-box {
+	width:400px;
+	height:450px;
+	margin:auto;
+	border: 1px solid #dddddd;
+}

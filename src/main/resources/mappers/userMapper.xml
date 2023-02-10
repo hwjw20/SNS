@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+ <!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="com.jiwon.sns.user.dao.UserDAO">
+	<select id="selectUser" parameterType="string" resultType="com.jiwon.sns.user.model.User">
+		SELECT
+			`id`
+			, `loginId`
+			, `password`
+			, `name`
+			, `email`
+			, `createdAt`
+			, `updatedAt`
+		FROM
+			`user`
+		WHERE
+			`loginId` = #{loginId}
+			AND `password` = #{password}
+	</select>
+	
+	<insert id="insertUser" parameterType="string">
+		INSERT INTO
+			`user`
+		(
+			`loginId`
+			, `password`
+			, `name`
+			, `email`
+			, `createdAt`
+			, `updatedAt`
+		)
+		VALUE
+		(
+			#{loginId}
+			, #{password}
+			, #{name}
+			, #{email}
+			, now()
+			, now()
+		)
+	</insert>
+	
+	<select id="selectUserByLoginId" parameterType="string" resultType="com.jiwon.sns.user.model.User">
+		SELECT
+			`id`
+			, `loginId`
+			, `password`
+			, `name`
+			, `email`
+			, `createdAt`
+			, `updatedAt`
+		FROM
+			`user`
+		WHERE
+			`loginId` = #{loginId}
+	</select>
+</mapper>
