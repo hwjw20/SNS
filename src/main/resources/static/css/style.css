@@ -20,3 +20,8 @@ section > .join-box {
 	margin:auto;
 	border: 1px solid #dddddd;
 }
+section > #imgBox {
+	width:150px;
+	height:100px;
+	margin-left: 0;
+}

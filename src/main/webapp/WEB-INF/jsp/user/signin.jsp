@@ -24,10 +24,12 @@
 			<div class="join-box text-center margin pt-2 pl-5 pr-5" style="background-color:#f7f7f7">
 				<h1 class="mt-5">Pingstagram</h1>
 				
-				<input type="text" class="form-control mt-5" placeholder="아이디" id="idInput">
-				<input type="password" class="form-control mt-2" id="passwordInput" placeholder="비밀번호">
-				<div class="float-right small mt-2"><a href="#">비밀번호를 잊으셨나요?</a></div>
-				<button type="button" class="btn btn-primary mt-5 btn-block" id="loginBtn">로그인</button>
+				<form id="loginForm">
+					<input type="text" class="form-control mt-5" placeholder="아이디" id="idInput">
+					<input type="password" class="form-control mt-2" id="passwordInput" placeholder="비밀번호">
+					<div class="float-right small mt-2"><a href="#">비밀번호를 잊으셨나요?</a></div>
+					<button type="submit" class="btn btn-primary mt-5 btn-block" id="loginBtn">로그인</button>
+				</form>
 				
 				<div class="small mt-3">또는</div>
 				<hr>
@@ -43,17 +45,23 @@
 	<script>
 		$(document).ready(function() {
 			
-			$("#loginBtn").on("click", function() {
+			$("#loginForm").on("submit", function(e) {
+			//$("#loginBtn").on("click", function() {
+				
+				// 해당 이벤트의 기능을 모두 취소한다.
+				e.preventDefault();
+				
+				
 				let id = $("#idInput").val();
 				let password = $("#passwordInput").val();
 				
 				if(id == "") {
 					alert("아이디를 입력하세요.");
-					return;
+					return ;
 				}
 				if(password == "") {
 					alert("비밀번호를 입력하세요.");
-					return;
+					return ;
 				}
 				
 				$.ajax({
@@ -70,8 +78,8 @@
 					, error:function() {
 						alert("에러");
 					}
-				
 				});
+				
 			});
 		});
 	</script>

@@ -23,6 +23,8 @@ public class UserRestController {
 	@Autowired
 	private UserBO userBO;
 	
+	
+	// 로그인 API
 	@PostMapping("/signin")
 	public Map<String, String> signin(
 			@RequestParam("loginId") String loginId
@@ -46,6 +48,8 @@ public class UserRestController {
 		return result;
 	}
 	
+	
+	// 회원가입 API
 	@PostMapping("/signup")
 	public Map<String, String> signup(
 			@RequestParam("loginId") String loginId
@@ -65,22 +69,21 @@ public class UserRestController {
 		return result;
 	}
 	
+	
+	// 아이디 중복확인 API
 	@GetMapping("/duplicate_id")
 	public Map<String, Boolean> isDuplicate(@RequestParam("loginId") String loginId) {
 		boolean isDuplicate = userBO.isDuplicatedId(loginId);
 		
 		Map<String, Boolean> result = new HashMap<>();
 		
-//		if(isDuplicate) {
-//			result.put("is_duplicate", true);
-//		} else {
-//			result.put("is_duplicate", false);
-//		}
 		result.put("is_duplicate", isDuplicate);
 		
 		return result;
 	}
 	
+	
+	// 비밀번호 찾기 API
 	@GetMapping("/searchPw")
 	public Map<String, Boolean> searchPw(
 			@RequestParam("loginId") String loginId

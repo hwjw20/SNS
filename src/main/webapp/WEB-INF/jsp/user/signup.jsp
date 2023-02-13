@@ -33,10 +33,10 @@
 				
 				<input type="password" class="form-control mt-4" id="passwordInput" placeholder="비밀번호">
 				<input type="password" class="form-control mt-4" id="passwordConfirmInput" placeholder="비밀번호 확인">
-				<input type="text" class="form-control mt-4" id="nameInput" placeholder="이름">
+				<input type="text" class="form-control mt-5" id="nameInput" placeholder="이름">
 				<input type="text" class="form-control mt-4" id="emailInput" placeholder="이메일">
 				
-				<button type="button" class="btn btn-primary mt-3" id="signupBtn">회원가입</button>
+				<button type="button" class="btn btn-primary mt-4" id="signupBtn">회원가입</button>
 			</div>
 		</section>
 		<footer class="text-center">
