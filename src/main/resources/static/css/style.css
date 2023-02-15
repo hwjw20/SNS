@@ -10,9 +10,7 @@ header {
 }
 section {
 	width:400px;
-	height:480px;
 	margin:auto;
-	
 }
 section > .join-box {
 	width:400px;
@@ -20,8 +18,21 @@ section > .join-box {
 	margin:auto;
 	border: 1px solid #dddddd;
 }
-section > #imgBox {
-	width:150px;
+section > .img-box {
+	width:200px;
 	height:100px;
-	margin-left: 0;
+}
+#loginIdHeader {
+	width:400px;
+	height:40px;
+	border: 1px solid #dddddd;
+}
+#postDiv {
+	width:400px;
+	height:250px;
+}
+#commentDiv {
+	width:370px;
+	height:250px;
+	margin:auto;
 }

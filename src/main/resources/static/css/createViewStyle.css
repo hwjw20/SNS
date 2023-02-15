@@ -1,0 +1,21 @@
+@charset "UTF-8";
+
+#wrap {
+	width:600px;
+	margin:auto;
+}
+header {
+	height: 50px;
+	margin:auto;
+}
+section {
+	height:500px;
+}
+.img-box {
+	width:150px;
+	height:150px;
+}
+
+footer {
+	height:100px;
+}
