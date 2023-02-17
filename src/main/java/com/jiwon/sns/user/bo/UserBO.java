@@ -33,4 +33,8 @@ public class UserBO {
 	public int searchPw(String loginId, String name, String email) {
 		return userDAO.selectPw(loginId, name, email);
 	}
+	
+	public User getUserInfo(int id) {
+		return userDAO.selectUserInfo(id);
+	}
 }

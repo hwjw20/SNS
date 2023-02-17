@@ -24,29 +24,14 @@
 		<header class="d-flex justify-content-between pt-4">
 			<a href="/post/timeline/view" class="ml-2"><i class="bi bi-chevron-compact-left"></i></a>
 			<h4>새 게시물</h4>
-			<a href="/post/timeline/view" class="mr-2">공유</i></a>
+			<button type="button" id="uploadBtn" class="btn">공유</button>
 		</header>
 		<section class="">
 			<hr>
 			<div class="d-flex">
-				<div class="img-box bg-secondary"></div>
-				<textarea cols="55" class="ml-2" style="resize:none"></textarea>
+				<input type="file" id="fileInput">
+				<textarea cols="55" class="ml-2" style="resize:none" id="contentInput"></textarea>
 				
-			</div>
-			<hr>
-			<div class="d-flex justify-content-between">
-				<div>사람 태그하기</div>
-				<a class="mr-2"><i class="bi bi-chevron-compact-right"></i></a>
-			</div>
-			<hr>
-			<div class="d-flex justify-content-between">
-				<div>위치 추가</div>
-				<a class="mr-2"><i class="bi bi-chevron-compact-right"></i></a>
-			</div>
-			<hr>
-			<div class="d-flex justify-content-between">
-				<div>음악 추가</div>
-				<a class="mr-2"><i class="bi bi-chevron-compact-right"></i></a>
 			</div>
 			<hr>
 			<div class="d-flex justify-content-between">
@@ -56,5 +41,47 @@
 		</section> 
 		<c:import url="/WEB-INF/jsp/include/footer.jsp" />
 	</div>
+	
+	<script>
+		$(document).ready(function() {
+			
+			$("#uploadBtn").on("click", function() {
+				
+				let content = $("#contentInput").val();
+				
+				// 파일이 선택되지 않았을때
+				if($("#fileInput")[0].files.length == 0) {
+					alert("파일을 선택해주세요");
+					return;
+				}
+				
+				var formData = new FormData();
+				formData.append("content", content);
+				formData.append("file", $("#fileInput")[0].files[0]);
+				
+				$.ajax({
+					type:"post"
+					, url:"/post/create"
+					, data:formData
+					, enctype:"multipart/form-data"
+					, processData:false
+					, contentType:false
+					, success:function(data) {
+						if(data.result == "success") {
+							location.href="/post/timeline/view";
+						} else {
+							alert("업로드에 실패했습니다.");
+						}
+					}
+					, error:function() {
+						alert("업로드 에러");
+					}
+				});
+				
+			})
+				
+			
+		});
+	</script>
 </body>
 </html>

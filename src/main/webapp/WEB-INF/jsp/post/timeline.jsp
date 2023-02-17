@@ -21,37 +21,45 @@
 </head>
 <body>
 	<div id="wrap">
-		<section>
-			<div id="loginIdHeader" class="d-flex justify-content-between">
-				<h4 class="ml-2">eee</h4>
-				<i class="bi bi-three-dots mr-2 pt-2"></i>
-			</div>
+		<c:import url="/WEB-INF/jsp/include/header.jsp" />
+		<section class="pt-2">
+			<div class="card-list">
 			
-			<div id="postDiv" class="bg-warning">
-				<img src="/images/4_1676378303268/animal-4638681__340.jpg" width="400" height="250">
-			</div>
-			
-			<div id="commentDiv" class="pt-2">
-				<div class="d-flex ml-2">
-					<i class="bi bi-heart"></i>
-					<div class="ml-2">좋아요 10개</div>
+				<c:forEach var="post" items="${postList}">
+				<div class="card">
+					<div id="loginIdHeader" class="d-flex justify-content-between">
+						<h4 class="ml-2"><a href="#">${post.loginId}</a></h4>
+						<a href="#" class="mr-2 pt-2"><i class="bi bi-three-dots"></i></a>
+					</div>
+					
+					<div id="postDiv">
+						<img src="${post.imagePath}" width="400" height="250">
+					</div>
+					
+					<div id="commentDiv" class="pt-2">
+						<div class="d-flex ml-2">
+							<a href="#"><i class="bi bi-heart"></i></a>
+							<div class="ml-2">좋아요 10개</div>
+						</div>
+						<div>
+							<span class="ml-2"><b>eee</b></span>
+							<span>${post.content}</span>
+						</div>
+						<div class="mt-2">
+							<div class="text-secondary small ml-2">댓글</div>
+							<span><b>damee</b></span>
+							<span>댓글</span>
+						</div>
+						
+						<div class="input-group mt-4">
+							<input type="text" class="form-control" placeholder="내용을 입력해주세요." id="commentInput">
+							<button class="btn btn-outline-secondary" type="button" id="saveBtn">게시</button>
+						</div>
+						<div class="mt-2 d-none" id="nonComment">댓글을 입력해주세요.</div>
+						
+					</div>
 				</div>
-				<div>
-					<span class="ml-2"><b>eee</b></span>
-					<span>제주도 여행~! </span>
-				</div>
-				<div class="mt-2">
-					<div class="text-secondary small ml-2">댓글</div>
-					<span><b>damee</b></span>
-					<span>재밌었지~</span>
-				</div>
-				
-				<div class="input-group mt-3">
-					<input type="text" class="form-control" placeholder="내용을 입력해주세요." id="commentInput">
-					<button class="btn btn-outline-secondary" type="button" id="saveBtn">게시</button>
-				</div>
-				<div class="mt-2 d-none" id="nonComment">댓글을 입력해주세요.</div>
-				
+				</c:forEach>
 			</div>
 			
 		</section>
@@ -69,6 +77,10 @@
 					$("#nonComment").removeClass("d-none");
 				} 
 				
+				$.ajax({
+					type:"post"
+					, url:""
+				});
 				
 			});
 		});

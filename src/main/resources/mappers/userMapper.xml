@@ -62,4 +62,19 @@
 			AND `name` = #{name}
 			AND `email` = #{email}
 	</select>
+	
+	<select id="selectUserInfo" parameterType="int" resultType="com.jiwon.sns.user.model.User">
+		SELECT
+			`id`
+			, `loginId`
+			, `password`
+			, `name`
+			, `email`
+			, `createdAt`
+			, `updatedAt`
+		FROM
+			`user`
+		WHERE
+			`id` = #{id}
+	</select>
 </mapper>

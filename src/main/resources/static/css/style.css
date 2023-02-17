@@ -12,20 +12,18 @@ section {
 	width:400px;
 	margin:auto;
 }
+.card {
+	border: 1px solid #dddddd;
+}
 section > .join-box {
 	width:400px;
 	height:450px;
 	margin:auto;
-	border: 1px solid #dddddd;
-}
-section > .img-box {
-	width:200px;
-	height:100px;
+	
 }
 #loginIdHeader {
 	width:400px;
 	height:40px;
-	border: 1px solid #dddddd;
 }
 #postDiv {
 	width:400px;
@@ -35,4 +33,7 @@ section > .img-box {
 	width:370px;
 	height:250px;
 	margin:auto;
+}
+a {
+	color:black;
 }

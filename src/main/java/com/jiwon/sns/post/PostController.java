@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.jiwon.sns.post.bo.PostBO;
 import com.jiwon.sns.post.model.Post;
+import com.jiwon.sns.post.model.PostDetail;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -25,15 +26,12 @@ public class PostController {
 		return "post/create";
 	}
 	
+	// 타임라인
 	@GetMapping("/timeline/view")
 	public String timeline(
-			HttpServletRequest request
-			, Model model) {
+			Model model) {
 		
-		HttpSession session = request.getSession();
-		String loginId = (String) session.getAttribute("loginId");
-		
-		List<Post> postList = postBO.getPostList();
+		List<PostDetail> postList = postBO.getPostList();
 		model.addAttribute("postList", postList);
 		
 		return "post/timeline";
