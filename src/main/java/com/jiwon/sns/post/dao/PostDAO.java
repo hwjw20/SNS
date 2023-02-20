@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
+import com.jiwon.sns.post.model.Like;
 import com.jiwon.sns.post.model.Post;
 
 @Repository
@@ -17,6 +18,10 @@ public interface PostDAO {
 			, @Param("imagePath") String imagePath);
 
 	public List<Post> selectPostList();
+	
+	public int insertLike(
+			@Param("postId") int postId
+			, @Param("userId") int userId);
 	
 
 }

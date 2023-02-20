@@ -9,6 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.jiwon.sns.common.FileManagerService;
 import com.jiwon.sns.post.dao.PostDAO;
+import com.jiwon.sns.post.model.Like;
 import com.jiwon.sns.post.model.Post;
 import com.jiwon.sns.post.model.PostDetail;
 import com.jiwon.sns.user.bo.UserBO;
@@ -38,11 +39,14 @@ public class PostBO {
 			int userId = post.getUserId();
 			User user = userBO.getUserInfo(userId);
 			
+			Like like = postDAO.selectLikeById(post.getId());
+			
 			postDetail.setId(post.getId());
 			postDetail.setUserId(userId);
 			postDetail.setLoginId(user.getLoginId());
 			postDetail.setContent(post.getContent());
 			postDetail.setImagePath(post.getImagePath());
+			
 			
 			postDetailList.add(postDetail);
 		}
@@ -58,4 +62,10 @@ public class PostBO {
 		
 		return postDAO.insertPost(userId, content, imagePath);
 	}
+	
+	// 좋아요 기능
+	public int addLike(int postId, int userId) {
+		return postDAO.insertLike(postId, userId);
+	}
+	
 }

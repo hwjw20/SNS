@@ -20,17 +20,17 @@
   	<link rel="stylesheet" href="/static/css/createViewStyle.css" type="text/css">
 </head>
 <body>
-	<div id="wrap" class="">
+	<div id="wrap">
 		<header class="d-flex justify-content-between pt-4">
 			<a href="/post/timeline/view" class="ml-2"><i class="bi bi-chevron-compact-left"></i></a>
 			<h4>새 게시물</h4>
 			<button type="button" id="uploadBtn" class="btn">공유</button>
 		</header>
-		<section class="">
+		<section>
 			<hr>
 			<div class="d-flex">
 				<input type="file" id="fileInput">
-				<textarea cols="55" class="ml-2" style="resize:none" id="contentInput"></textarea>
+				<textarea cols="70" rows="10" class="ml-2" style="resize:none" id="contentInput" onchange="setThumbnail(event);"></textarea>
 				
 			</div>
 			<hr>
@@ -44,6 +44,18 @@
 	
 	<script>
 		$(document).ready(function() {
+			
+			function setThumbnail(event) {
+		        var reader = new FileReader();
+
+		        reader.onload = function(event) {
+		          var img = document.createElement("img");
+		          img.setAttribute("src", event.target.result);
+		          document.querySelector("div#image_container").appendChild(img);
+		        };
+
+		        reader.readAsDataURL(event.target.files[0]);
+		      }
 			
 			$("#uploadBtn").on("click", function() {
 				

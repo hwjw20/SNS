@@ -32,8 +32,12 @@ public class PostController {
 			Model model) {
 		
 		List<PostDetail> postList = postBO.getPostList();
+		
+		
 		model.addAttribute("postList", postList);
 		
 		return "post/timeline";
 	}
+	
+	
 }

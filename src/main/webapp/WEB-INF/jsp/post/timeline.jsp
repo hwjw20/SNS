@@ -26,7 +26,7 @@
 			<div class="card-list">
 			
 				<c:forEach var="post" items="${postList}">
-				<div class="card">
+				<div class="card mb-2">
 					<div id="loginIdHeader" class="d-flex justify-content-between">
 						<h4 class="ml-2"><a href="#">${post.loginId}</a></h4>
 						<a href="#" class="mr-2 pt-2"><i class="bi bi-three-dots"></i></a>
@@ -38,13 +38,14 @@
 					
 					<div id="commentDiv" class="pt-2">
 						<div class="d-flex ml-2">
-							<a href="#"><i class="bi bi-heart"></i></a>
+							<a href="#" class="heart-btn" data-post-id="${post.id}"><i class="bi bi-heart"></i></a>
 							<div class="ml-2">좋아요 10개</div>
 						</div>
 						<div>
 							<span class="ml-2"><b>eee</b></span>
 							<span>${post.content}</span>
 						</div>
+						<hr>
 						<div class="mt-2">
 							<div class="text-secondary small ml-2">댓글</div>
 							<span><b>damee</b></span>
@@ -52,8 +53,8 @@
 						</div>
 						
 						<div class="input-group mt-4">
-							<input type="text" class="form-control" placeholder="내용을 입력해주세요." id="commentInput">
-							<button class="btn btn-outline-secondary" type="button" id="saveBtn">게시</button>
+							<input type="text" class="form-control" placeholder="내용을 입력해주세요." id="commentInput" >
+							<button class="btn btn-outline-secondary" type="button" id="saveBtn" data-commentBtn-id="${post.id}">게시</button>
 						</div>
 						<div class="mt-2 d-none" id="nonComment">댓글을 입력해주세요.</div>
 						
@@ -69,9 +70,35 @@
 	<script>
 		$(document).ready(function() {
 			
+			
+			$(".heart-btn").on("click", function() {
+
+				// 해당하는 버튼의 postId를 얻어온다.
+				let postId = $(this).data("post-id");
+				
+				$.ajax({
+					type:"get"
+					, url:"/post/like"
+					, data:{"postId":postId}
+					, success:function(data) {
+						if(data.result == "success") {
+							location.reload();
+						} else {
+							alert("좋아요 실패");
+						}
+					}
+					, error:function() {
+						alert("좋아요 에러");
+					}
+					
+				});
+				
+			});
+			
 			$("#saveBtn").on("click", function() {
 				
 				let comment = $("#commentInput").val();
+				let postId = $(this).data("post-id");
 				
 				if(comment == "") {
 					$("#nonComment").removeClass("d-none");
@@ -79,7 +106,10 @@
 				
 				$.ajax({
 					type:"post"
-					, url:""
+					, url:"/post/comment/create"
+					, data:{"postId":postId}
+					, success:
+					
 				});
 				
 			});
