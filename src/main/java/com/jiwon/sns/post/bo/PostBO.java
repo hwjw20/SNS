@@ -8,8 +8,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.jiwon.sns.common.FileManagerService;
+import com.jiwon.sns.post.comment.bo.CommentBO;
+import com.jiwon.sns.post.comment.model.Comment;
 import com.jiwon.sns.post.dao.PostDAO;
-import com.jiwon.sns.post.model.Like;
+import com.jiwon.sns.post.like.bo.LikeBO;
 import com.jiwon.sns.post.model.Post;
 import com.jiwon.sns.post.model.PostDetail;
 import com.jiwon.sns.user.bo.UserBO;
@@ -24,8 +26,14 @@ public class PostBO {
 	@Autowired
 	private UserBO userBO;
 	
+	@Autowired
+	private LikeBO likeBO;
+	
+	@Autowired
+	private CommentBO commentBO;
+	
 	// 타임라인
-	public List<PostDetail> getPostList() {
+	public List<PostDetail> getPostList(int loginUserId) {
 		
 		List<Post> postList = postDAO.selectPostList();
 		
@@ -37,16 +45,25 @@ public class PostBO {
 			// loginId 값을 저장한다.
 
 			int userId = post.getUserId();
+			int postId = post.getId();
 			User user = userBO.getUserInfo(userId);
 			
-			Like like = postDAO.selectLikeById(post.getId());
-			
-			postDetail.setId(post.getId());
+			postDetail.setId(postId);
 			postDetail.setUserId(userId);
 			postDetail.setLoginId(user.getLoginId());
 			postDetail.setContent(post.getContent());
 			postDetail.setImagePath(post.getImagePath());
 			
+			int countLike = likeBO.countLike(postId);
+			postDetail.setCountLike(countLike);
+			postDetail.setCommentLoginId(null);
+			
+			boolean isLike = likeBO.isLike(loginUserId, postId);
+			postDetail.setLike(isLike);
+			
+//			Comment comment = commentBO.getComment(postId);
+//			postDetail.setCommentId(comment.getId());
+//			postDetail.setCommentContent(comment.getContent());
 			
 			postDetailList.add(postDetail);
 		}
@@ -63,9 +80,6 @@ public class PostBO {
 		return postDAO.insertPost(userId, content, imagePath);
 	}
 	
-	// 좋아요 기능
-	public int addLike(int postId, int userId) {
-		return postDAO.insertLike(postId, userId);
-	}
+
 	
 }

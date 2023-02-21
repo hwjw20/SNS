@@ -37,4 +37,5 @@ public class UserBO {
 	public User getUserInfo(int id) {
 		return userDAO.selectUserInfo(id);
 	}
+	
 }

@@ -7,6 +7,14 @@ public class PostDetail {
 	private String loginId;
 	private String content;
 	private String imagePath;
+	private int countLike;
+	private boolean isLike;
+	
+	private int commentId;
+	private int commentUserId;
+	private String commentContent;
+	private String commentLoginId;
+	
 	
 	public int getId() {
 		return id;
@@ -37,6 +45,42 @@ public class PostDetail {
 	}
 	public void setImagePath(String imagePath) {
 		this.imagePath = imagePath;
+	}
+	public int getCountLike() {
+		return countLike;
+	}
+	public void setCountLike(int countLike) {
+		this.countLike = countLike;
+	}
+	public boolean isLike() {
+		return isLike;
+	}
+	public void setLike(boolean isLike) {
+		this.isLike = isLike;
+	}
+	public int getCommentId() {
+		return commentId;
+	}
+	public void setCommentId(int commentId) {
+		this.commentId = commentId;
+	}
+	public int getCommentUserId() {
+		return commentUserId;
+	}
+	public void setCommentUserId(int commentUserId) {
+		this.commentUserId = commentUserId;
+	}
+	public String getCommentContent() {
+		return commentContent;
+	}
+	public void setCommentContent(String commentContent) {
+		this.commentContent = commentContent;
+	}
+	public String getCommentLoginId() {
+		return commentLoginId;
+	}
+	public void setCommentLoginId(String commentLoginId) {
+		this.commentLoginId = commentLoginId;
 	}
 	
 	

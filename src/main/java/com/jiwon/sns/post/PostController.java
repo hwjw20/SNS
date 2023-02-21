@@ -9,10 +9,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.jiwon.sns.post.bo.PostBO;
-import com.jiwon.sns.post.model.Post;
+import com.jiwon.sns.post.like.bo.LikeBO;
 import com.jiwon.sns.post.model.PostDetail;
 
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 @Controller
 @RequestMapping("/post")
@@ -20,6 +19,7 @@ public class PostController {
 	
 	@Autowired
 	private PostBO postBO;
+	
 	
 	@GetMapping("/create/view")
 	public String createPost() {
@@ -29,9 +29,12 @@ public class PostController {
 	// 타임라인
 	@GetMapping("/timeline/view")
 	public String timeline(
-			Model model) {
+			Model model
+			, HttpSession session) {
 		
-		List<PostDetail> postList = postBO.getPostList();
+		int userId = (int) session.getAttribute("userId");
+		
+		List<PostDetail> postList = postBO.getPostList(userId);
 		
 		
 		model.addAttribute("postList", postList);

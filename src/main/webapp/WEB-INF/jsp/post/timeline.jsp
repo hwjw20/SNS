@@ -39,7 +39,7 @@
 					<div id="commentDiv" class="pt-2">
 						<div class="d-flex ml-2">
 							<a href="#" class="heart-btn" data-post-id="${post.id}"><i class="bi bi-heart"></i></a>
-							<div class="ml-2">좋아요 10개</div>
+							<div class="ml-2">좋아요 ${post.countLike}개</div>
 						</div>
 						<div>
 							<span class="ml-2"><b>eee</b></span>
@@ -49,12 +49,14 @@
 						<div class="mt-2">
 							<div class="text-secondary small ml-2">댓글</div>
 							<span><b>damee</b></span>
-							<span>댓글</span>
+							<span>...</span>
+							
+							
 						</div>
 						
 						<div class="input-group mt-4">
-							<input type="text" class="form-control" placeholder="내용을 입력해주세요." id="commentInput" >
-							<button class="btn btn-outline-secondary" type="button" id="saveBtn" data-commentBtn-id="${post.id}">게시</button>
+							<input type="text" class="form-control" placeholder="내용을 입력해주세요." id="commentInput${post.id}">
+							<button class="btn btn-outline-secondary comment-btn" type="button" data-post-id="${post.id}">게시</button>
 						</div>
 						<div class="mt-2 d-none" id="nonComment">댓글을 입력해주세요.</div>
 						
@@ -95,22 +97,31 @@
 				
 			});
 			
-			$("#saveBtn").on("click", function() {
+			$(".comment-btn").on("click", function() {
 				
-				let comment = $("#commentInput").val();
 				let postId = $(this).data("post-id");
+				//let comment = $("#commentInput" + postId).val();
 				
-				if(comment == "") {
-					$("#nonComment").removeClass("d-none");
-				} 
+				let comment = $(this).prev().val();
 				
 				$.ajax({
 					type:"post"
 					, url:"/post/comment/create"
-					, data:{"postId":postId}
-					, success:
-					
+					, data:{"postId":postId, "content":comment}
+					, success:function(data) {
+						if(data.result == "success") {
+							location.reload();
+						} else {
+							alert("댓글 작성 실패");
+						}
+					}
+					, error:function() {
+						alert("댓글 작성 에러");
+					}
 				});
+				
+				
+				
 				
 			});
 		});

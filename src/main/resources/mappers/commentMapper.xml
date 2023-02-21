@@ -25,4 +25,17 @@
 		)
 	</insert>
 	
+	<select id="selectComment" parameterType="int" resultType="com.jiwon.sns.post.comment.model.Comment">
+		SELECT
+			`id`
+			, `userId`
+			, `postId`
+			, `content`
+			, `createdAt`
+			, `updatedAt`
+		FROM
+			`comment`
+		WHERE
+			`postId` = #{postId}
+	</select>
 </mapper>

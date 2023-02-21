@@ -1,36 +1,33 @@
-package com.jiwon.sns.post;
+package com.jiwon.sns.post.like;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
 
-import com.jiwon.sns.post.bo.PostBO;
+import com.jiwon.sns.post.like.bo.LikeBO;
 
 import jakarta.servlet.http.HttpSession;
 
 @RestController
 @RequestMapping("/post")
-public class PostRestController {
+public class LikeRestController {
 
 	@Autowired
-	private PostBO postBO;
+	private LikeBO likeBO;
 	
-	@PostMapping("/create")
-	public Map<String, String> addPost(
-			@RequestParam("content") String content
-			, @RequestParam("file") MultipartFile file
+	@GetMapping("/like")
+	public Map<String, String> like(
+			@RequestParam("postId") int postId
 			, HttpSession session) {
 		
 		int userId = (int) session.getAttribute("userId");
 		
-		int count = postBO.addPost(userId, content, file);
+		int count = likeBO.addLike(userId, postId);
 		
 		Map<String, String> result = new HashMap<>();
 		if(count == 1) {
