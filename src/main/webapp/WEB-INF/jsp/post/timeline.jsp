@@ -38,27 +38,33 @@
 					
 					<div id="commentDiv" class="pt-2">
 						<div class="d-flex ml-2">
-							<a href="#" class="heart-btn" data-post-id="${post.id}"><i class="bi bi-heart"></i></a>
+							<c:choose>
+								<c:when test="${post.like}">
+									<a href=#><i class="bi bi-heart-fill text-danger"></i></a>
+								</c:when>
+								<c:otherwise>
+									<a href="#" class="heart-btn" data-post-id="${post.id}"><i class="bi bi-heart"></i></a>
+								</c:otherwise>					
+							</c:choose>
 							<div class="ml-2">좋아요 ${post.countLike}개</div>
 						</div>
 						<div>
 							<span class="ml-2"><b>eee</b></span>
 							<span>${post.content}</span>
 						</div>
-						<hr>
 						<div class="mt-2">
 							<div class="text-secondary small ml-2">댓글</div>
-							<span><b>damee</b></span>
-							<span>...</span>
-							
+							<hr>
+							<c:forEach var="comment" items="${post.commentList}">
+								<div><b>${comment.loginId } </b>${comment.content }</div>								
+							</c:forEach>
 							
 						</div>
 						
-						<div class="input-group mt-4">
+						<div class="input-group mt-2">
 							<input type="text" class="form-control" placeholder="내용을 입력해주세요." id="commentInput${post.id}">
 							<button class="btn btn-outline-secondary comment-btn" type="button" data-post-id="${post.id}">게시</button>
 						</div>
-						<div class="mt-2 d-none" id="nonComment">댓글을 입력해주세요.</div>
 						
 					</div>
 				</div>
@@ -103,6 +109,9 @@
 				//let comment = $("#commentInput" + postId).val();
 				
 				let comment = $(this).prev().val();
+				if(comment == "") {
+					return;
+				}
 				
 				$.ajax({
 					type:"post"

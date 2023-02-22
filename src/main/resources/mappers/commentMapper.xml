@@ -25,7 +25,7 @@
 		)
 	</insert>
 	
-	<select id="selectComment" parameterType="int" resultType="com.jiwon.sns.post.comment.model.Comment">
+	<select id="selectCommentList" parameterType="int" resultType="com.jiwon.sns.post.comment.model.Comment">
 		SELECT
 			`id`
 			, `userId`

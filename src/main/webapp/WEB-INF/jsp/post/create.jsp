@@ -24,13 +24,13 @@
 		<header class="d-flex justify-content-between pt-4">
 			<a href="/post/timeline/view" class="ml-2"><i class="bi bi-chevron-compact-left"></i></a>
 			<h4>새 게시물</h4>
-			<button type="button" id="uploadBtn" class="btn">공유</button>
+			<button type="button" id="uploadBtn" class="btn btn-">공유</button>
 		</header>
 		<section>
 			<hr>
 			<div class="d-flex">
 				<input type="file" id="fileInput">
-				<textarea cols="70" rows="10" class="ml-2" style="resize:none" id="contentInput" onchange="setThumbnail(event);"></textarea>
+				<textarea cols="70" rows="6" class="ml-2" style="resize:none" id="contentInput" onchange="setThumbnail(event);"></textarea>
 				
 			</div>
 			<hr>

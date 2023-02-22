@@ -9,7 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.jiwon.sns.common.FileManagerService;
 import com.jiwon.sns.post.comment.bo.CommentBO;
-import com.jiwon.sns.post.comment.model.Comment;
+import com.jiwon.sns.post.comment.model.CommentDetail;
 import com.jiwon.sns.post.dao.PostDAO;
 import com.jiwon.sns.post.like.bo.LikeBO;
 import com.jiwon.sns.post.model.Post;
@@ -47,23 +47,19 @@ public class PostBO {
 			int userId = post.getUserId();
 			int postId = post.getId();
 			User user = userBO.getUserInfo(userId);
+			int countLike = likeBO.countLike(postId);
+			boolean isLike = likeBO.isLike(loginUserId, postId);
+			List<CommentDetail> commentList = commentBO.getCommentList(postId);
+			
 			
 			postDetail.setId(postId);
 			postDetail.setUserId(userId);
 			postDetail.setLoginId(user.getLoginId());
 			postDetail.setContent(post.getContent());
 			postDetail.setImagePath(post.getImagePath());
-			
-			int countLike = likeBO.countLike(postId);
 			postDetail.setCountLike(countLike);
-			postDetail.setCommentLoginId(null);
-			
-			boolean isLike = likeBO.isLike(loginUserId, postId);
 			postDetail.setLike(isLike);
-			
-//			Comment comment = commentBO.getComment(postId);
-//			postDetail.setCommentId(comment.getId());
-//			postDetail.setCommentContent(comment.getContent());
+			postDetail.setCommentList(commentList);
 			
 			postDetailList.add(postDetail);
 		}

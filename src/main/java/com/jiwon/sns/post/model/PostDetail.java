@@ -1,5 +1,9 @@
 package com.jiwon.sns.post.model;
 
+import java.util.List;
+
+import com.jiwon.sns.post.comment.model.CommentDetail;
+
 public class PostDetail {
 
 	private int id;
@@ -9,11 +13,7 @@ public class PostDetail {
 	private String imagePath;
 	private int countLike;
 	private boolean isLike;
-	
-	private int commentId;
-	private int commentUserId;
-	private String commentContent;
-	private String commentLoginId;
+	private List<CommentDetail> commentList;
 	
 	
 	public int getId() {
@@ -58,29 +58,11 @@ public class PostDetail {
 	public void setLike(boolean isLike) {
 		this.isLike = isLike;
 	}
-	public int getCommentId() {
-		return commentId;
+	public List<CommentDetail> getCommentList() {
+		return commentList;
 	}
-	public void setCommentId(int commentId) {
-		this.commentId = commentId;
-	}
-	public int getCommentUserId() {
-		return commentUserId;
-	}
-	public void setCommentUserId(int commentUserId) {
-		this.commentUserId = commentUserId;
-	}
-	public String getCommentContent() {
-		return commentContent;
-	}
-	public void setCommentContent(String commentContent) {
-		this.commentContent = commentContent;
-	}
-	public String getCommentLoginId() {
-		return commentLoginId;
-	}
-	public void setCommentLoginId(String commentLoginId) {
-		this.commentLoginId = commentLoginId;
+	public void setCommentList(List<CommentDetail> commentList) {
+		this.commentList = commentList;
 	}
 	
 	
