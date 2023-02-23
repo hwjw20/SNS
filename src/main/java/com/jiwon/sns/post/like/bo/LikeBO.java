@@ -29,4 +29,10 @@ public class LikeBO {
 			return false;
 		}
 	}
+	
+	// 좋아요 취소
+	public int unlike(int userId, int postId) {
+		return likeDAO.deleteLike(userId, postId);
+	}
+	
 }

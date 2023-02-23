@@ -29,7 +29,7 @@
 				<div class="card mb-2">
 					<div id="loginIdHeader" class="d-flex justify-content-between">
 						<h4 class="ml-2"><a href="#">${post.loginId}</a></h4>
-						<a href="#" class="mr-2 pt-2"><i class="bi bi-three-dots"></i></a>
+						<a href="#" class="mr-2 pt-2" data-toggle="modal" data-target="#exampleModalCenter"><i class="bi bi-three-dots"></i></a>
 					</div>
 					
 					<div id="postDiv">
@@ -40,7 +40,7 @@
 						<div class="d-flex ml-2">
 							<c:choose>
 								<c:when test="${post.like}">
-									<a href=#><i class="bi bi-heart-fill text-danger"></i></a>
+									<a href=#><i class="bi bi-heart-fill text-danger heart-fill-btn" data-post-id="${post.id}"></i></a>
 								</c:when>
 								<c:otherwise>
 									<a href="#" class="heart-btn" data-post-id="${post.id}"><i class="bi bi-heart"></i></a>
@@ -48,10 +48,12 @@
 							</c:choose>
 							<div class="ml-2">좋아요 ${post.countLike}개</div>
 						</div>
+						
 						<div>
-							<span class="ml-2"><b>eee</b></span>
+							<span class="ml-2"><b>${post.loginId}</b></span>
 							<span>${post.content}</span>
 						</div>
+						
 						<div class="mt-2">
 							<div class="text-secondary small ml-2">댓글</div>
 							<hr>
@@ -73,10 +75,48 @@
 			
 		</section>
 		<c:import url="/WEB-INF/jsp/include/footer.jsp" />
+		
+		<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+			Launch demo modal
+		</button>
+		
+	</div>
+	
+	<!-- Modal -->
+	<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+	  <div class="modal-dialog modal-dialog-centered" role="document">
+	    <div class="modal-content">
+	      <div class="modal-body text-center">
+	        <a>삭제하기</a>
+	      </div>
+	    </div>
+	  </div>
 	</div>
 	
 	<script>
 		$(document).ready(function() {
+			
+			$(".heart-fill-btn").on("click", function() {
+				
+				let postId = $(this).data("post-id");
+				
+				$.ajax({
+					type:"get"
+					, url:"/post/unlike"
+					, data:{"postId":postId}
+					, success:function(data) {
+						if(data.result == "success") {
+							location.reload();
+						} else {
+							alert("좋아요 취소 실패");
+						}
+					}
+					, error:function() {
+						alert("좋아요 취소 에러");
+					}
+				});
+			});
+			
 			
 			
 			$(".heart-btn").on("click", function() {

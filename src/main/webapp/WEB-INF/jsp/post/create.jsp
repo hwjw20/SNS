@@ -24,38 +24,46 @@
 		<header class="d-flex justify-content-between pt-4">
 			<a href="/post/timeline/view" class="ml-2"><i class="bi bi-chevron-compact-left"></i></a>
 			<h4>새 게시물</h4>
-			<button type="button" id="uploadBtn" class="btn btn-">공유</button>
+			<button type="button" id="uploadBtn" class="btn">공유</button>
 		</header>
 		<section>
 			<hr>
-			<div class="d-flex">
-				<input type="file" id="fileInput">
-				<textarea cols="70" rows="6" class="ml-2" style="resize:none" id="contentInput" onchange="setThumbnail(event);"></textarea>
+			<div class="d-flex justify-content-between">
+				<input type="file" id="fileInput" class="d-none" onchange="readURL(this);">
+				<img id="preview" width="160"/>
+				<textarea cols="60" rows="6" class="ml-2" style="resize:none" id="contentInput" onchange="setThumbnail(event);"></textarea>
 				
 			</div>
 			<hr>
 			<div class="d-flex justify-content-between">
-				<div>고급 설정</div>
-				<a class="mr-2"><i class="bi bi-chevron-compact-right"></i></a>
+				<c:forEach var="post" items="${postList}">
+					<img src="${post}" width="180" height="140">
+				</c:forEach>
+				
 			</div>
 		</section> 
 		<c:import url="/WEB-INF/jsp/include/footer.jsp" />
 	</div>
 	
 	<script>
+		function readURL(input) {
+			if (input.files && input.files[0]) {
+				
+		    	var reader = new FileReader();
+		    	reader.onload = function(e) {
+		      		document.getElementById('preview').src = e.target.result;
+		    	};
+		    	reader.readAsDataURL(input.files[0]);
+		  } else {
+		  	document.getElementById('preview').src = "";
+		  }
+		}
+	
 		$(document).ready(function() {
 			
-			function setThumbnail(event) {
-		        var reader = new FileReader();
-
-		        reader.onload = function(event) {
-		          var img = document.createElement("img");
-		          img.setAttribute("src", event.target.result);
-		          document.querySelector("div#image_container").appendChild(img);
-		        };
-
-		        reader.readAsDataURL(event.target.files[0]);
-		      }
+			$("#preview").on("click", function() {
+				$("#fileInput").click();
+			});
 			
 			$("#uploadBtn").on("click", function() {
 				

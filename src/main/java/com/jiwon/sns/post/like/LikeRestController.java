@@ -39,5 +39,23 @@ public class LikeRestController {
 		return result;
 	}
 	
+	@GetMapping("/unlike")
+	public Map<String, String> unlike(
+			@RequestParam("postId") int postId
+			, HttpSession session) {
+		
+		int userId = (int) session.getAttribute("userId");
+		
+		int count = likeBO.unlike(userId, postId);
+		
+		Map<String, String> result = new HashMap<>();
+		if(count == 1) {
+			result.put("result", "success");
+		} else {
+			result.put("result", "fail");
+		}
+		
+		return result;
+	}
 	
 }

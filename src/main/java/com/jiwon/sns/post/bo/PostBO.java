@@ -76,6 +76,8 @@ public class PostBO {
 		return postDAO.insertPost(userId, content, imagePath);
 	}
 	
-
+	public List<String> getImgById(int userId) {
+		return postDAO.selectImgList(userId);
+	}
 	
 }

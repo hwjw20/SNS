@@ -22,7 +22,14 @@ public class PostController {
 	
 	
 	@GetMapping("/create/view")
-	public String createPost() {
+	public String createPost(Model model, HttpSession session) {
+		
+		int userId = (int) session.getAttribute("userId");
+		
+		List<String> postList = postBO.getImgById(userId);
+		
+		model.addAttribute("postList", postList);
+		
 		return "post/create";
 	}
 	
@@ -35,7 +42,6 @@ public class PostController {
 		int userId = (int) session.getAttribute("userId");
 		
 		List<PostDetail> postList = postBO.getPostList(userId);
-		
 		
 		model.addAttribute("postList", postList);
 		

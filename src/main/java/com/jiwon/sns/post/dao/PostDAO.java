@@ -19,7 +19,7 @@ public interface PostDAO {
 
 	public List<Post> selectPostList();
 	
-
+	public List<String> selectImgList(@Param("userId") int userId);
 	
 
 }

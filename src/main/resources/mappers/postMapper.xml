@@ -37,6 +37,16 @@
 		)
 	</insert>
 	
+	<select id="selectImgList" parameterType="int" resultType="string">
+		SELECT
+			`imagePath`
+		FROM
+			`post`
+		WHERE
+			`userId` = #{userId}
+		ORDER BY
+			`id` DESC
+	</select>
 
 	
 </mapper>
