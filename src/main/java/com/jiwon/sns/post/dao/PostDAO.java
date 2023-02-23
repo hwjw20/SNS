@@ -21,5 +21,9 @@ public interface PostDAO {
 	
 	public List<String> selectImgList(@Param("userId") int userId);
 	
-
+	public Post selectPost(@Param("postId") int postId);
+	
+	public int deletePost(
+			@Param("postId") int postId
+			, @Param("userId") int userId);
 }

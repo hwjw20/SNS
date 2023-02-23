@@ -29,7 +29,13 @@
 				<div class="card mb-2">
 					<div id="loginIdHeader" class="d-flex justify-content-between">
 						<h4 class="ml-2"><a href="#">${post.loginId}</a></h4>
-						<a href="#" class="mr-2 pt-2" data-toggle="modal" data-target="#exampleModalCenter"><i class="bi bi-three-dots"></i></a>
+						
+						<%-- 로그인한 userId와 해당 게시글의 userId가 일치하는 경우만 more-btn 보여주기 --%>
+						<c:if test="${userId eq post.userId}">
+							<a href="#" data-toggle="modal" data-target="#moreMenuModal" class="more-btn mr-2 pt-2" data-post-id="${post.id}"><i class="bi bi-three-dots"></i></a>
+						</c:if>
+						
+						<%-- <a href="#" class="mr-2 pt-2 more-btn" data-toggle="modal" data-target="#exampleModalCenter" data-post-id="${post.id}"><i class="bi bi-three-dots"></i></a> --%>
 					</div>
 					
 					<div id="postDiv">
@@ -76,18 +82,15 @@
 		</section>
 		<c:import url="/WEB-INF/jsp/include/footer.jsp" />
 		
-		<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
-			Launch demo modal
-		</button>
 		
 	</div>
 	
 	<!-- Modal -->
-	<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+	<div class="modal fade" id="moreMenuModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 	  <div class="modal-dialog modal-dialog-centered" role="document">
 	    <div class="modal-content">
 	      <div class="modal-body text-center">
-	        <a>삭제하기</a>
+	        <a href="#" type="button" id="deleteBtn">삭제하기</a>
 	      </div>
 	    </div>
 	  </div>
@@ -95,6 +98,38 @@
 	
 	<script>
 		$(document).ready(function() {
+			
+			$(".more-btn").on("click", function() {
+				// 해당 more-btn 태그에 있는 postId를 모달의 a태그에 넣는다.
+				let postId = $(this).data("post-id");
+				
+				// data-post-id=""
+				$("#deleteBtn").data("post-id", postId);
+				
+			});
+			
+			$("#deleteBtn").on("click", function() {
+				
+				let postId = $(this).data("post-id");
+				
+				$.ajax({
+					type:"get"
+					, url:"/post/delete"
+					, data:{"postId":postId}
+					, success:function(data) {
+						if(data.result == "success") {
+							location.reload();
+						} else {
+							alert("게시글 삭제 실패");
+						}
+					}
+					, error:function() {
+						alert("게시글 삭제 에러");						
+					}
+				});
+				
+			});
+			
 			
 			$(".heart-fill-btn").on("click", function() {
 				

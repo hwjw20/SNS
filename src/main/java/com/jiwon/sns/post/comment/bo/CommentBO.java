@@ -50,4 +50,12 @@ public class CommentBO {
 		return commentDetailList;
 	}
 	
+	// postId 기반으로 댓글 삭제
+	public int deleteCommentByPostId(int postId) {
+		return commentDAO.deleteCommentByPostId(postId);
+	}
+	
+	
+	
+	
 }

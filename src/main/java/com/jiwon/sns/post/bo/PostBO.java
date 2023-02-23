@@ -80,4 +80,23 @@ public class PostBO {
 		return postDAO.selectImgList(userId);
 	}
 	
+	public int deletePost(int postId, int userId) {
+
+		Post post = postDAO.selectPost(postId);
+		
+		// 대상 post 삭제
+		int count = postDAO.deletePost(postId, userId);
+		if(count == 1) {
+			FileManagerService.removeFile(post.getImagePath());
+			
+			// 댓굴 삭제
+			commentBO.deleteCommentByPostId(postId);
+			
+			// 좋아요 삭제
+			likeBO.deleteLikeByPostId(postId);
+		}
+		
+		return count;
+	}
+	
 }
