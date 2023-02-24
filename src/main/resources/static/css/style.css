@@ -13,7 +13,8 @@ section {
 	margin:auto;
 }
 .card {
-	border: 1px solid #dddddd;
+	border-right: 1px solid #dddddd;
+	border-left: 1px solid #dddddd;
 }
 section > .join-box {
 	width:400px;
@@ -27,11 +28,9 @@ section > .join-box {
 }
 #postDiv {
 	width:400px;
-	height:250px;
 }
 #commentDiv {
 	width:370px;
-	height:250px;
 	margin:auto;
 }
 a {

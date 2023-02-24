@@ -60,7 +60,7 @@
 							<span>${post.content}</span>
 						</div>
 						
-						<div class="mt-2">
+						<div class="mt-1">
 							<div class="text-secondary small ml-2">댓글</div>
 							<hr>
 							<c:forEach var="comment" items="${post.commentList}">
@@ -69,7 +69,7 @@
 							
 						</div>
 						
-						<div class="input-group mt-2">
+						<div class="input-group pt-1 pb-3">
 							<input type="text" class="form-control" placeholder="내용을 입력해주세요." id="commentInput${post.id}">
 							<button class="btn btn-outline-secondary comment-btn" type="button" data-post-id="${post.id}">게시</button>
 						</div>
@@ -97,6 +97,7 @@
 	</div>
 	
 	<script>
+	
 		$(document).ready(function() {
 			
 			$(".more-btn").on("click", function() {

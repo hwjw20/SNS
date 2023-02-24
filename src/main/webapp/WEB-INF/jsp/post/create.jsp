@@ -24,7 +24,10 @@
 		<header class="d-flex justify-content-between pt-4">
 			<a href="/post/timeline/view" class="ml-2"><i class="bi bi-chevron-compact-left"></i></a>
 			<h4>새 게시물</h4>
-			<button type="button" id="uploadBtn" class="btn">공유</button>
+			<div>
+				<button type="button" id="uploadBtn" class="btn mr-4">공유</button>
+				<a href="#" data-toggle="modal" data-target="#signoutModal" id="signoutBtn"><i class="bi bi-box-arrow-right"></i></a>
+			</div>
 		</header>
 		<section>
 			<hr>
@@ -36,13 +39,30 @@
 			</div>
 			<hr>
 			<div class="d-flex justify-content-between">
-				<c:forEach var="post" items="${postList}">
-					<img src="${post}" width="180" height="140">
-				</c:forEach>
-				
+				<table>
+					<tr>
+						<c:forEach var="post" items="${postList}" varStatus="status">
+						<c:if test="${status.index%3==0}">
+							</tr><tr>
+						</c:if>
+						<td class="pl-2"><img src="${post}" width="180" height="140"></td>
+						</c:forEach>
+					</tr>
+				</table>
 			</div>
 		</section> 
 		<c:import url="/WEB-INF/jsp/include/footer.jsp" />
+	</div>
+	
+	<!-- Modal -->
+	<div class="modal fade" id="signoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+	  <div class="modal-dialog modal-dialog-centered" role="document">
+	    <div class="modal-content">
+	      <div class="modal-body text-center">
+	        <a href="/user/signout" type="button">로그아웃</a>
+	      </div>
+	    </div>
+	  </div>
 	</div>
 	
 	<script>
@@ -60,6 +80,7 @@
 		}
 	
 		$(document).ready(function() {
+			
 			
 			$("#preview").on("click", function() {
 				$("#fileInput").click();
