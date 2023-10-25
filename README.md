@@ -19,7 +19,6 @@ Java Eclipse Spring Boot MyBatis
 Javascript HTML CSS
 
 MySQL GitHub Zenhub
-
 ```
 
 ## Features
@@ -29,9 +28,15 @@ MySQL GitHub Zenhub
 * 회원가입 및 로그인 기능
   
 * 게시물 작성 기능
+  
 * 타임라인 기능
   * 좋아요, 댓글 쓰기
+    
 * 페이지 권한 부여 기
   * 비로그인시, 접근 불가
 
 ### Images
+
+
+<img src="https://github.com/hwjw20/SNS/assets/121436436/46962d88-39b7-49d5-ab7d-494b364459b6" width="45%"> | <img src="https://github.com/hwjw20/SNS/assets/121436436/2a88511a-037f-429e-a308-424f27044bea" width="45%">  
+
